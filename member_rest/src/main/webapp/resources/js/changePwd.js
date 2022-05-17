@@ -1,0 +1,33 @@
+/**
+ * /rest/changePwd.jsp 
+ */
+$(function() {
+	//비밀번호 변경을 ajax로 처리하기
+	$(":submit").click(function(e){
+		e.preventDefault();
+		
+      let param={
+         userid:$("#userid").val(),   
+         password:$("#password").val(),   
+         new_password:$("#new_password").val(),   
+         confirm_password:$("#confirm_password").val(),   
+      }
+
+		
+		$.ajax({
+			url:'changePwd',
+			type:'put',
+			contentType:'application/json',
+			data:JSON.stringify(param),
+			success:function(data){
+				alert(data);
+			},
+			error:function(xhr,status,error){
+				alert(xhr.responseText);
+			}
+		})
+	})
+	
+});
+
+

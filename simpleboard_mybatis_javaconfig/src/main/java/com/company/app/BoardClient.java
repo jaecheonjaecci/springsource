@@ -1,0 +1,66 @@
+package com.company.app;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.company.config.BoardConfig;
+import com.company.domain.BoardDTO;
+import com.company.service.BoardService;
+
+public class BoardClient {
+
+	public static void main(String[] args) {
+
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(BoardConfig.class);
+		BoardService service = (BoardService) ctx.getBean("boardService");
+
+//		BoardDTO insertDto = new BoardDTO();
+//		insertDto.setTitle("졸린 점심시간 이후");
+//		insertDto.setContent("잠은 무엇인가");
+//		insertDto.setWriter("홍길동");
+//		
+//		System.out.println(service.insertBoard(insertDto)?"입력성공":"입력실패");
+
+		//하나만 조회하기
+		BoardDTO row = service.getRow(21);
+		
+		System.out.print(row.getBno()+"\t");
+		System.out.print(row.getTitle()+"\t");
+		System.out.print(row.getContent()+"\t");
+		System.out.print(row.getWriter()+"\t");
+		System.out.print(row.getRegdate()+"\t");
+		System.out.print(row.getUpdatedate()+"\n");
+		
+		System.out.println();
+
+//		//수정하기
+//		BoardDTO updateDto = new BoardDTO();
+//		updateDto.setBno(21);
+//		updateDto.setTitle("스프링수정");
+//		updateDto.setContent("DI란 무엇인가?");
+//		
+//		System.out.println(service.updateBoard(updateDto)?"수정성공":"수정실패");
+//		
+
+		// 삭제하기
+//		System.out.println(service.deletetBoard(21) ? "삭제성공" : "삭제실패");
+
+		// 전체 조회하기
+//		List<BoardDTO> list = service.getRows();
+//
+//		System.out.println("------------------------------------------------------");
+//		System.out.println("bno\t title\t content\t writer\t regdate\t updatedate");
+//		System.out.println("-------------------------------------------------------");
+//
+//		for (BoardDTO dto : list) {
+//			System.out.print(dto.getBno() + "\t");
+//			System.out.print(dto.getTitle() + "\t");
+//			System.out.print(dto.getContent() + "\t");
+//			System.out.print(dto.getWriter() + "\t");
+//			System.out.print(dto.getRegdate() + "\t");
+//			System.out.print(dto.getUpdatedate() + "\n");
+//		}
+
+	}
+
+}

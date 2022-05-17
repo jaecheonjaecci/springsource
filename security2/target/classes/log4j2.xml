@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+	<!-- 로그 기록 위치 설정 : 화면, 파일, 데이터베이스 -->
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+    	<!-- == 실행된 시간 / 클래스이름 / 로그레벨 / 패키지네임 / 로그메시지 -->
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+  </Appenders>
+  
+  <!-- 개별적인 로그 설정 -->
+  <Loggers>
+  	<!-- 3rdparty Loggers -->
+	<Logger name="org.springframework.core" level="info"/>
+	<Logger name="org.springframework.beans" level="info"/>
+	<Logger name="org.springframework.context" level="info"/>
+	
+	<Logger name="org.springframework.web" level="debug"/>
+	<Logger name="org.springframework.jdbc" level="debug"/>
+	<Logger name="org.springframework.security" level="info"/>
+
+
+  <!-- 특정 패키지 로그 설정 : default로 콘솔창에 찍힘-->
+  	<Logger name="com.company.controller" level="info"/>
+  	<Logger name="com.company.service" level="info"/>
+  	<Logger name="com.company.mapper" level="debug"/>
+  	<Logger name="com.company.task" level="info"/>
+  	<Logger name="com.company.handler" level="info"/>
+  	
+
+  	<!-- 그 외 패키지들은 이렇게 설정 -->
+    <Root level="error">
+      <AppenderRef ref="Console"/>
+    </Root>
+  </Loggers>
+</Configuration>

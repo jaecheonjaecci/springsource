@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.mapper.PersonMapper">
+	
+	<!-- 메소드명과 XML아이디가 반드시 일치해야 함 : insert 구문 -->
+	<insert id="insertPerson">
+		insert into Person(id,name) values(#{id},#{name})
+	</insert>
+	<!-- update구문 -->
+	<update id="updatePerson">
+		update person
+		set name=#{name}
+		where id=#{id}
+	</update>
+	<!-- delete구문 -->
+	<delete id="deletePerson">
+		delete from person where id=#{id}
+	</delete>
+	
+	<!-- resulttype은 sql구문을 실행함으로서 넘어오는 데이터의 타입을 말함 -->
+	<!-- 아이디에 맞는 이름가져오기 -->
+	<select id="selectPerson" resultType="java.lang.String">
+		select name from person where id=#{id}
+	</select>
+	
+	<!-- 전체 조회하는 sql문 -->
+	<!-- 넘어온 값을 PersonDTO 타입으로 리턴한다는 뜻 -->
+	<select id="all" resultType="com.company.domain.PersonDTO">
+		select * from person
+	</select>
+	
+	
+</mapper>

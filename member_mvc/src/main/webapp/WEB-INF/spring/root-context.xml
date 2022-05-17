@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 사용중인 annotation 활성화 시키기 : @Autowired, @Inject, @Component, @Service.. -->
+	<!-- 해당 annotaion이 사용된 패키지를 스캔하는 구문 작성 -->
+	<context:component-scan base-package="com.company.service"/>
+
+
+	<!-- mybatis가 사용하는 Mapper interface, Mapper xml 활성화 시키는 코드 작성 -->
+	<mybatis-spring:scan base-package="com.company.mapper"/>
+
+	
+	<!-- mybatis 데이터베이스 연동 시 sqlSessionFactory 사용하기 위해 bean(객체) 생성하는 코드 작성 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds"/>
+	</bean>
+
+	
+	<!-- DBCP(DataBase Connection Pulling) : Connection을 모아놓은 것 "HikariCP"-->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<!-- <property> : setter를 이용한 injection 방법 -->
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="c##java"/>
+		<property name="password" value="12345"/>	
+	</bean>
+	
+	
+	<!-- DBCP를 사용하면서 connection을 얻어오기 위해서는 datasource를 가져와야 함, 그 때 사용 -->
+	<bean id="ds" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg ref="hikariConfig"/>	
+	</bean>		
+
+</beans>
